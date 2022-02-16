@@ -204,8 +204,10 @@ func (m *_Model) genTableElement(cols []ColumnsInfo) (el []genstruct.GenElement)
 				} else {
 					if config.GetWebTagType() == 0 {
 						tmp.AddTag(_tagJSON, mybigcamel.UnSmallMarshal(mybigcamel.Marshal(v.Name)))
-					} else {
+					} else if config.GetWebTagType() == 1 {
 						tmp.AddTag(_tagJSON, mybigcamel.UnMarshal(v.Name))
+					} else {
+						tmp.AddTag(_tagJSON, mybigcamel.Marshal(v.Name))
 					}
 				}
 			}
@@ -252,8 +254,10 @@ func (m *_Model) genForeignKey(col ColumnsInfo) (fklist []genstruct.GenElement) 
 			if config.GetIsWEBTag() {
 				if config.GetWebTagType() == 0 {
 					tmp.AddTag(_tagJSON, mybigcamel.UnSmallMarshal(mybigcamel.Marshal(v.TableName))+"List")
-				} else {
+				} else if config.GetWebTagType() == 1 {
 					tmp.AddTag(_tagJSON, mybigcamel.UnMarshal(v.TableName)+"_list")
+				} else {
+					tmp.AddTag(_tagJSON, mybigcamel.Marshal(v.TableName)+"List")
 				}
 			}
 
